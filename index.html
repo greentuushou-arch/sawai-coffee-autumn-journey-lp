@@ -111,21 +111,20 @@ a{ text-decoration:none; color:inherit; }
 .sw-masthead-issue{
   font-family:"Noto Sans JP",sans-serif; font-weight:700; font-size:.8rem; letter-spacing:.1em; color:var(--rust-deep); margin:0;
 }
-.sw-hero-headline{ padding:34px 26px 28px; text-align:center; }
 .sw-hero-title{
   font-family:"Zen Old Mincho",serif; font-weight:700; font-size:1.65rem; line-height:1.75;
-  color:var(--ink); margin:0 0 20px;
+  color:var(--white); margin:0; text-align:left;
 }
 .sw-hero-lead{
-  font-size:.92rem; line-height:2; color:var(--ink-soft); margin:0; max-width:420px; margin:0 auto;
+  font-size:.86rem; line-height:1.9; color:rgba(255,246,230,.88); margin:0 0 16px; text-align:left;
 }
 
 /* ---- 10月限定バッジ ---- */
 .sw-hero-event-badge{
-  display:inline-flex; flex-direction:column; align-items:center; gap:5px;
+  display:inline-flex; flex-direction:column; align-items:flex-start; gap:5px;
   background:linear-gradient(135deg, var(--rust-deep), var(--rust)); color:var(--white);
-  border:1.5px solid var(--gold); border-radius:14px; padding:13px 26px;
-  margin:24px auto 0; box-shadow:0 10px 24px rgba(138,52,32,.3);
+  border:1.5px solid var(--gold); border-radius:14px; padding:13px 22px;
+  box-shadow:0 10px 24px rgba(0,0,0,.4);
 }
 .sw-hero-event-badge-kicker{
   font-family:"Jost",sans-serif; font-weight:700; font-size:.66rem; letter-spacing:.24em; color:var(--gold-soft);
@@ -146,42 +145,28 @@ a{ text-decoration:none; color:inherit; }
 .sw-eyebrow-icon{ width:14px; height:14px; flex:none; color:currentColor; opacity:.8; }
 .sw-eyebrow-icon svg{ width:100%; height:100%; display:block; }
 
-/* ---- FV写真(動画風の演出) ---- */
+/* ---- FV写真(文字を重ねたファーストビュー) ---- */
 .sw-hero-photo-frame{ position:relative; overflow:hidden; aspect-ratio:4/5; background:var(--coffee-950); }
 .sw-hero-photo-frame .sw-hero-photo{
   width:100%; height:100%; object-fit:cover; object-position:78% 38%;
-  display:block; animation:sw-kenburns 15s ease-in-out infinite alternate;
+  display:block; animation:sw-kenburns 16s ease-in-out infinite alternate;
   transform-origin:75% 35%;
 }
 @keyframes sw-kenburns{
   0%{ transform:scale(1); }
   100%{ transform:scale(1.1); }
 }
-.sw-hero-steam-layer{ position:absolute; inset:0; overflow:hidden; pointer-events:none; }
-.sw-hero-steam{
-  position:absolute; left:40%; top:30%; width:16px; height:30px; border-radius:50%;
-  background:rgba(255,246,230,.4); filter:blur(6px); opacity:0;
-  animation:sw-hero-steam-rise 5.5s ease-in-out infinite;
+.sw-hero-scrim{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(100deg, rgba(8,6,4,.82) 0%, rgba(8,6,4,.5) 32%, rgba(8,6,4,.15) 55%, rgba(8,6,4,0) 72%),
+    linear-gradient(180deg, rgba(8,6,4,.35) 0%, rgba(8,6,4,0) 22%, rgba(8,6,4,0) 60%, rgba(8,6,4,.75) 100%);
 }
-.sw-hero-steam.s2{ left:47%; width:12px; height:24px; animation-delay:1.8s; animation-duration:6.2s; }
-.sw-hero-steam.s3{ left:35%; width:10px; height:20px; animation-delay:3.4s; animation-duration:5.8s; }
-@keyframes sw-hero-steam-rise{
-  0%{ transform:translate(0,0) scale(.7); opacity:0; }
-  18%{ opacity:.55; }
-  55%{ transform:translate(-8px,-50px) scale(1.15); opacity:.35; }
-  100%{ transform:translate(10px,-110px) scale(1.5); opacity:0; }
+.sw-hero-overlay{
+  position:absolute; inset:0; z-index:2; padding:28px 26px 24px;
+  display:flex; flex-direction:column; justify-content:space-between;
 }
-.sw-hero-shimmer{
-  position:absolute; inset:0; pointer-events:none; mix-blend-mode:screen;
-  background:linear-gradient(115deg, transparent 42%, rgba(255,222,165,.22) 50%, transparent 58%);
-  background-size:260% 260%; opacity:0;
-  animation:sw-shimmer-sweep 8s ease-in-out infinite;
-}
-@keyframes sw-shimmer-sweep{
-  0%,100%{ background-position:130% 130%; opacity:0; }
-  35%{ opacity:.9; }
-  60%{ background-position:-30% -30%; opacity:0; }
-}
+.sw-hero-overlay-bottom{ max-width:420px; }
 .sw-hero-caption{
   display:flex; justify-content:space-between; align-items:center;
   padding:10px 24px; background:var(--coffee-950); color:rgba(255,246,230,.6);
@@ -362,9 +347,11 @@ a{ text-decoration:none; color:inherit; }
 @media screen and (min-width:768px){
   .sw-inner{ padding:72px 34px; max-width:600px; }
   .sw-block-title{ font-size:1.9rem; }
-  .sw-hero-title{ font-size:2.6rem; }
-  .sw-hero-photo-frame{ aspect-ratio:16/9; }
+  .sw-hero-title{ font-size:2.2rem; }
+  .sw-hero-photo-frame{ aspect-ratio:16/10; }
   .sw-hero-photo-frame .sw-hero-photo{ object-position:68% 32%; }
+  .sw-hero-overlay{ padding:40px 44px 36px; }
+  .sw-hero-overlay-bottom{ max-width:460px; }
   .sw-route-body{ max-width:600px; padding:34px 34px 48px; }
   .sw-route-title{ font-size:1.55rem; }
   .sw-event-title{ font-size:2rem; }
@@ -399,31 +386,27 @@ a{ text-decoration:none; color:inherit; }
       <p class="sw-masthead-issue">2026 AUTUMN — 霜降特集</p>
     </div>
 
-    <div class="sw-hero-headline">
-      <h1 class="sw-hero-title">世界を<br>ひとめぐりする、<br>秋の珈琲旅。</h1>
-      <p class="sw-hero-lead">10月23日は「霜降」。温かい一杯がいっそう美味しく感じられる季節に、<br>まだ知らない3つの味と出会う。</p>
-
-      <div class="sw-hero-event-badge">
-        <span class="sw-hero-event-badge-kicker">OCTOBER ONLY</span>
-        <span class="sw-hero-event-badge-main"><span class="sw-num">1,000</span>円OFF<span class="sw-hero-event-badge-x">×</span>ポイント<span class="sw-num">10</span>倍</span>
-        <span class="sw-hero-event-badge-price">
-          <span class="before">3,605円</span>
-          <span class="arrow">→</span>
-          <span class="after"><span class="sw-num">2,605</span><small>円</small></span>
-        </span>
-      </div>
-
-    </div>
-
     <div class="sw-hero-photo-frame">
       <!-- ▼差し替え可: images/product/hero-coffee-light.jpg -->
       <img src="images/product/hero-coffee-light.jpg" alt="窓辺の光とコーヒー豆、湯気の立つ淹れたての一杯" class="sw-hero-photo">
-      <div class="sw-hero-steam-layer" aria-hidden="true">
-        <span class="sw-hero-steam s1"></span>
-        <span class="sw-hero-steam s2"></span>
-        <span class="sw-hero-steam s3"></span>
+      <div class="sw-hero-scrim" aria-hidden="true"></div>
+
+      <div class="sw-hero-overlay">
+        <h1 class="sw-hero-title">世界を<br>ひとめぐりする、<br>秋の珈琲旅。</h1>
+        <div class="sw-hero-overlay-bottom">
+          <p class="sw-hero-lead">10月23日は「霜降」。温かい一杯がいっそう美味しく感じられる季節に、<br>まだ知らない3つの味と出会う。</p>
+          <div class="sw-hero-event-badge">
+            <span class="sw-hero-event-badge-kicker">OCTOBER ONLY</span>
+            <span class="sw-hero-event-badge-main"><span class="sw-num">1,000</span>円OFF<span class="sw-hero-event-badge-x">×</span>ポイント<span class="sw-num">10</span>倍</span>
+            <span class="sw-hero-event-badge-price">
+              <span class="before">3,605円</span>
+              <span class="arrow">→</span>
+              <span class="after"><span class="sw-num">2,605</span><small>円</small></span>
+            </span>
+          </div>
+        </div>
       </div>
-      <div class="sw-hero-shimmer" aria-hidden="true"></div>
+
       <div class="sw-hero-caption">
         <span>GERMANY / GOLDEN HOUR / NAPOLI</span>
         <span>60杯分</span>
