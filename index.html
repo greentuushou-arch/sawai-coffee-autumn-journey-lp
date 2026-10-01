@@ -120,11 +120,12 @@ a{ text-decoration:none; color:inherit; }
   font-size:.86rem; line-height:1.9; color:rgba(255,246,230,.88); margin:0 0 16px; text-align:left;
 }
 
-/* ---- 10月限定バッジ ---- */
+/* ---- 10月限定バッジ(横幅いっぱいのバー) ---- */
 .sw-hero-event-badge{
-  display:inline-flex; flex-direction:column; align-items:flex-start; gap:8px;
+  display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center;
   background:linear-gradient(135deg, var(--rust-deep), var(--rust)); color:var(--white);
-  border:2px solid var(--gold); border-radius:16px; padding:20px 26px;
+  border-top:2px solid var(--gold); border-bottom:2px solid var(--gold);
+  padding:20px 26px; margin:0 -26px;
   box-shadow:0 12px 28px rgba(0,0,0,.45);
 }
 .sw-hero-event-badge-kicker{
@@ -134,11 +135,11 @@ a{ text-decoration:none; color:inherit; }
 .sw-hero-event-badge-main .sw-num{ font-family:"Jost",sans-serif; }
 .sw-hero-event-badge-x{ color:var(--gold-soft); margin:0 2px; }
 .sw-hero-event-badge-price{
-  display:flex; flex-direction:column; gap:4px; margin-top:6px;
+  display:flex; flex-direction:column; align-items:center; gap:4px; margin-top:6px;
   font-family:"Noto Sans JP",sans-serif;
 }
-.sw-hero-event-badge-price .top-row{ display:flex; align-items:baseline; gap:8px; }
-.sw-hero-event-badge-price .bottom-row{ display:flex; flex-direction:column; align-items:flex-start; gap:2px; }
+.sw-hero-event-badge-price .top-row{ display:flex; align-items:baseline; justify-content:center; gap:8px; }
+.sw-hero-event-badge-price .bottom-row{ display:flex; flex-direction:column; align-items:center; gap:2px; }
 .sw-hero-event-badge-price .before{ font-size:.9rem; color:rgba(255,255,255,.65); text-decoration:line-through; }
 .sw-hero-event-badge-price .arrow{ font-size:.9rem; color:rgba(255,255,255,.75); }
 .sw-hero-event-badge-price .coupon-label{ font-size:.82rem; font-weight:700; color:var(--gold-soft); }
@@ -357,6 +358,7 @@ a{ text-decoration:none; color:inherit; }
   .sw-hero-photo-frame .sw-hero-photo{ object-position:68% 32%; }
   .sw-hero-overlay{ padding:40px 44px 36px; }
   .sw-hero-overlay-bottom{ max-width:480px; }
+  .sw-hero-event-badge{ margin:0 -44px; padding:26px 44px; }
   .sw-hero-event-badge-main{ font-size:1.5rem; white-space:nowrap; }
   .sw-br-mobile{ display:none; }
   .sw-hero-event-badge-price .after{ font-size:3rem; }
