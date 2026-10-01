@@ -142,56 +142,46 @@ a{ text-decoration:none; color:inherit; }
 .sw-hero-event-badge-price .after{ font-size:1.5rem; font-weight:900; color:var(--gold-soft); }
 .sw-hero-event-badge-price .after small{ font-size:.6em; font-weight:700; margin-left:1px; }
 
-/* ---- いれたての一杯(アニメーション) ---- */
-.sw-hero-live{
-  display:flex; align-items:center; gap:16px; max-width:420px; margin:20px auto 0;
-  padding:14px 18px; background:var(--paper-deep); border:1px solid var(--line); border-radius:14px;
-  text-align:left;
-}
-.sw-pour-icon{ position:relative; width:64px; height:64px; flex:none; color:var(--rust-deep); }
-.sw-pour-icon svg{ width:100%; height:100%; display:block; }
-.sw-pour-drop{
-  position:absolute; left:50%; top:5px; width:3.5px; height:3.5px; border-radius:50%;
-  background:var(--rust); transform:translateX(-50%); opacity:0;
-  animation:sw-drop 1.5s cubic-bezier(.55,0,1,.45) infinite;
-}
-.sw-pour-drop.d2{ animation-delay:.75s; }
-@keyframes sw-drop{
-  0%{ transform:translate(-50%,0); opacity:0; }
-  8%{ opacity:1; }
-  72%{ transform:translate(-50%,28px); opacity:1; }
-  84%{ transform:translate(-50%,29px); opacity:0; }
-  100%{ opacity:0; }
-}
-.sw-ripple{
-  position:absolute; left:32px; top:34px; width:4px; height:4px; margin:-2px 0 0 -2px;
-  border:1.4px solid var(--rust); border-radius:50%; opacity:0;
-  animation:sw-ripple 1.5s ease-out infinite;
-}
-@keyframes sw-ripple{
-  0%,66%{ width:4px; height:4px; margin:-2px 0 0 -2px; opacity:0; }
-  76%{ opacity:.55; }
-  100%{ width:26px; height:9px; margin:-4.5px 0 0 -13px; opacity:0; }
-}
-.sw-steam{
-  position:absolute; left:26px; top:26px; width:7px; height:12px; border-radius:50%;
-  background:rgba(138,52,32,.18); filter:blur(2.5px); opacity:0;
-  animation:sw-steam 3s ease-in-out infinite;
-}
-.sw-steam.s2{ left:37px; animation-delay:1.1s; }
-@keyframes sw-steam{
-  0%{ transform:translateY(0) scale(.6); opacity:0; }
-  25%{ opacity:.5; }
-  100%{ transform:translateY(-22px) scale(1.3); opacity:0; }
-}
-.sw-hero-live-kicker{
-  font-family:"Jost",sans-serif; font-weight:700; font-size:.66rem; letter-spacing:.16em;
-  color:var(--rust-deep); margin:0 0 4px;
-}
-.sw-hero-live-caption{ font-size:.8rem; color:var(--ink-soft); margin:0; line-height:1.6; }
+/* ---- 小さな湯気アイコン(各ブロック見出しで再利用) ---- */
+.sw-eyebrow-icon{ width:14px; height:14px; flex:none; color:currentColor; opacity:.8; }
+.sw-eyebrow-icon svg{ width:100%; height:100%; display:block; }
 
-.sw-hero-photo-frame{ position:relative; }
-.sw-hero-photo-frame img{ width:100%; display:block; }
+/* ---- FV写真(動画風の演出) ---- */
+.sw-hero-photo-frame{ position:relative; overflow:hidden; aspect-ratio:4/5; background:var(--coffee-950); }
+.sw-hero-photo-frame .sw-hero-photo{
+  width:100%; height:100%; object-fit:cover; object-position:center 32%;
+  display:block; animation:sw-kenburns 15s ease-in-out infinite alternate;
+  transform-origin:55% 40%;
+}
+@keyframes sw-kenburns{
+  0%{ transform:scale(1); }
+  100%{ transform:scale(1.1); }
+}
+.sw-hero-steam-layer{ position:absolute; inset:0; overflow:hidden; pointer-events:none; }
+.sw-hero-steam{
+  position:absolute; left:40%; top:30%; width:16px; height:30px; border-radius:50%;
+  background:rgba(255,246,230,.4); filter:blur(6px); opacity:0;
+  animation:sw-hero-steam-rise 5.5s ease-in-out infinite;
+}
+.sw-hero-steam.s2{ left:47%; width:12px; height:24px; animation-delay:1.8s; animation-duration:6.2s; }
+.sw-hero-steam.s3{ left:35%; width:10px; height:20px; animation-delay:3.4s; animation-duration:5.8s; }
+@keyframes sw-hero-steam-rise{
+  0%{ transform:translate(0,0) scale(.7); opacity:0; }
+  18%{ opacity:.55; }
+  55%{ transform:translate(-8px,-50px) scale(1.15); opacity:.35; }
+  100%{ transform:translate(10px,-110px) scale(1.5); opacity:0; }
+}
+.sw-hero-shimmer{
+  position:absolute; inset:0; pointer-events:none; mix-blend-mode:screen;
+  background:linear-gradient(115deg, transparent 42%, rgba(255,222,165,.22) 50%, transparent 58%);
+  background-size:260% 260%; opacity:0;
+  animation:sw-shimmer-sweep 8s ease-in-out infinite;
+}
+@keyframes sw-shimmer-sweep{
+  0%,100%{ background-position:130% 130%; opacity:0; }
+  35%{ opacity:.9; }
+  60%{ background-position:-30% -30%; opacity:0; }
+}
 .sw-hero-caption{
   display:flex; justify-content:space-between; align-items:center;
   padding:10px 24px; background:var(--coffee-950); color:rgba(255,246,230,.6);
@@ -373,6 +363,8 @@ a{ text-decoration:none; color:inherit; }
   .sw-inner{ padding:72px 34px; max-width:600px; }
   .sw-block-title{ font-size:1.9rem; }
   .sw-hero-title{ font-size:2.6rem; }
+  .sw-hero-photo-frame{ aspect-ratio:16/9; }
+  .sw-hero-photo-frame .sw-hero-photo{ object-position:center 16%; }
   .sw-route-body{ max-width:600px; padding:34px 34px 48px; }
   .sw-route-title{ font-size:1.55rem; }
   .sw-event-title{ font-size:2rem; }
@@ -421,29 +413,17 @@ a{ text-decoration:none; color:inherit; }
         </span>
       </div>
 
-      <div class="sw-hero-live">
-        <div class="sw-pour-icon" aria-hidden="true">
-          <svg viewBox="0 0 72 72">
-            <path d="M20 38h32l-3.5 18a7 7 0 0 1-7 6H30.5a7 7 0 0 1-7-6L20 38Z" fill="none" stroke="currentColor" stroke-width="2.2"/>
-            <path d="M52 41h4a6 6 0 0 1 0 12h-4" fill="none" stroke="currentColor" stroke-width="2.2"/>
-            <ellipse cx="36" cy="38" rx="16" ry="3" fill="currentColor" opacity=".12"/>
-          </svg>
-          <span class="sw-pour-drop d1"></span>
-          <span class="sw-pour-drop d2"></span>
-          <span class="sw-ripple"></span>
-          <span class="sw-steam s1"></span>
-          <span class="sw-steam s2"></span>
-        </div>
-        <div class="sw-hero-live-text">
-          <p class="sw-hero-live-kicker">NOW POURING</p>
-          <p class="sw-hero-live-caption">いれたての一杯が、ちょうど注がれるところ。</p>
-        </div>
-      </div>
     </div>
 
     <div class="sw-hero-photo-frame">
-      <!-- ▼差し替え可: images/product/photo-group.jpg -->
-      <img src="images/product/photo-group.jpg" alt="澤井珈琲 10月のおすすめレギュラーコーヒー3種(ジャーマンクラシック・金のビターブレンド・秋のブレンドイタリアナポリ風)">
+      <!-- ▼差し替え可: images/product/hero-cup-german.jpg -->
+      <img src="images/product/hero-cup-german.jpg" alt="澤井珈琲 10月のおすすめレギュラーコーヒー ジャーマンクラシックを淹れたての一杯" class="sw-hero-photo">
+      <div class="sw-hero-steam-layer" aria-hidden="true">
+        <span class="sw-hero-steam s1"></span>
+        <span class="sw-hero-steam s2"></span>
+        <span class="sw-hero-steam s3"></span>
+      </div>
+      <div class="sw-hero-shimmer" aria-hidden="true"></div>
       <div class="sw-hero-caption">
         <span>GERMANY / GOLDEN HOUR / NAPOLI</span>
         <span>60杯分</span>
@@ -465,7 +445,7 @@ a{ text-decoration:none; color:inherit; }
        ============================================================ -->
   <section class="sw-block sw-block-white" id="block1">
     <div class="sw-inner">
-      <span class="sw-eyebrow">OCTOBER 23 — 霜降</span>
+      <span class="sw-eyebrow"><span class="sw-eyebrow-icon" aria-hidden="true"><svg viewBox="0 0 72 72"><path d="M20 38h32l-3.5 18a7 7 0 0 1-7 6H30.5a7 7 0 0 1-7-6L20 38Z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M52 41h4a6 6 0 0 1 0 12h-4" fill="none" stroke="currentColor" stroke-width="5"/><path d="M30 30c0-3-3-3-3-6s3-3 3-6M42 30c0-3-3-3-3-6s3-3 3-6" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span>OCTOBER 23 — 霜降</span>
       <h2 class="sw-block-title">霜降――<br>珈琲がいちばん、<br>恋しくなる日。</h2>
       <p class="sw-block-text">二十四節気のひとつ「霜降」は、朝晩の冷え込みが増し、霜が降りはじめる頃。空気が澄み渡り、<strong>温かい一杯がいっそう美味しく感じられる</strong>季節の変わり目です。</p>
       <p class="sw-block-text">いつものお気に入りもいいけれど、この秋はまだ知らない一杯を。世界のどこかの香りを連れてくる、3つの新しいブレンドを集めました。</p>
@@ -477,7 +457,7 @@ a{ text-decoration:none; color:inherit; }
        ============================================================ -->
   <section id="routes">
     <div class="sw-inner sw-route-intro">
-      <span class="sw-eyebrow">3 BLENDS, 1 JOURNEY</span>
+      <span class="sw-eyebrow"><span class="sw-eyebrow-icon" aria-hidden="true"><svg viewBox="0 0 72 72"><path d="M20 38h32l-3.5 18a7 7 0 0 1-7 6H30.5a7 7 0 0 1-7-6L20 38Z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M52 41h4a6 6 0 0 1 0 12h-4" fill="none" stroke="currentColor" stroke-width="5"/><path d="M30 30c0-3-3-3-3-6s3-3 3-6M42 30c0-3-3-3-3-6s3-3 3-6" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span>3 BLENDS, 1 JOURNEY</span>
       <h2 class="sw-block-title">珈琲でめぐる、<br>秋の旅程。</h2>
       <p class="sw-block-text">王道のドイツ、大人の黄金時間、港町ナポリ。3つの寄港地を、ひと箱で。</p>
     </div>
@@ -551,7 +531,7 @@ a{ text-decoration:none; color:inherit; }
        ============================================================ -->
   <section class="sw-block sw-block-white" id="block-volume">
     <div class="sw-inner">
-      <span class="sw-eyebrow">200g × 3袋 — 60杯分</span>
+      <span class="sw-eyebrow"><span class="sw-eyebrow-icon" aria-hidden="true"><svg viewBox="0 0 72 72"><path d="M20 38h32l-3.5 18a7 7 0 0 1-7 6H30.5a7 7 0 0 1-7-6L20 38Z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M52 41h4a6 6 0 0 1 0 12h-4" fill="none" stroke="currentColor" stroke-width="5"/><path d="M30 30c0-3-3-3-3-6s3-3 3-6M42 30c0-3-3-3-3-6s3-3 3-6" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span>200g × 3袋 — 60杯分</span>
       <h2 class="sw-block-title">どっさり届く、<br>三か国分の秋。</h2>
       <p class="sw-block-text">1袋200g、3種類で合計600g・約60杯分。鳥取の焙煎工場で、ご注文後に丁寧に焼き上げてお届けします。</p>
 
@@ -575,7 +555,7 @@ a{ text-decoration:none; color:inherit; }
        ============================================================ -->
   <section class="sw-block sw-block-white" id="block-review">
     <div class="sw-inner">
-      <span class="sw-eyebrow">REVIEW</span>
+      <span class="sw-eyebrow"><span class="sw-eyebrow-icon" aria-hidden="true"><svg viewBox="0 0 72 72"><path d="M20 38h32l-3.5 18a7 7 0 0 1-7 6H30.5a7 7 0 0 1-7-6L20 38Z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M52 41h4a6 6 0 0 1 0 12h-4" fill="none" stroke="currentColor" stroke-width="5"/><path d="M30 30c0-3-3-3-3-6s3-3 3-6M42 30c0-3-3-3-3-6s3-3 3-6" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span>REVIEW</span>
       <h2 class="sw-block-title">旅を終えた方からの、<br>声。</h2>
 
       <div class="sw-review-score"><span class="sw-num">4.75</span><span class="sw-review-max">/ 5.00</span></div>
@@ -594,7 +574,7 @@ a{ text-decoration:none; color:inherit; }
        霜降キャンペーン詳細
        ============================================================ -->
   <section class="sw-event" id="block-event">
-    <span class="sw-eyebrow">AUTUMN JOURNAL CAMPAIGN</span>
+    <span class="sw-eyebrow"><span class="sw-eyebrow-icon" aria-hidden="true"><svg viewBox="0 0 72 72"><path d="M20 38h32l-3.5 18a7 7 0 0 1-7 6H30.5a7 7 0 0 1-7-6L20 38Z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M52 41h4a6 6 0 0 1 0 12h-4" fill="none" stroke="currentColor" stroke-width="5"/><path d="M30 30c0-3-3-3-3-6s3-3 3-6M42 30c0-3-3-3-3-6s3-3 3-6" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span>AUTUMN JOURNAL CAMPAIGN</span>
     <h2 class="sw-event-title">霜降までの、<br><span class="sw-num">1,000</span>円OFF</h2>
     <p class="sw-event-text">10月5日から10月23日「霜降」まで、1,000円クーポン・ポイント10倍で3か国分の秋をお届け。</p>
 
@@ -630,7 +610,7 @@ a{ text-decoration:none; color:inherit; }
        ============================================================ -->
   <section class="sw-final" id="block-final">
     <div class="sw-inner" style="padding-top:0;padding-bottom:0;">
-      <span class="sw-eyebrow">LAST CALL</span>
+      <span class="sw-eyebrow"><span class="sw-eyebrow-icon" aria-hidden="true"><svg viewBox="0 0 72 72"><path d="M20 38h32l-3.5 18a7 7 0 0 1-7 6H30.5a7 7 0 0 1-7-6L20 38Z" fill="none" stroke="currentColor" stroke-width="5"/><path d="M52 41h4a6 6 0 0 1 0 12h-4" fill="none" stroke="currentColor" stroke-width="5"/><path d="M30 30c0-3-3-3-3-6s3-3 3-6M42 30c0-3-3-3-3-6s3-3 3-6" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></span>LAST CALL</span>
       <h2 class="sw-block-title">今年の秋は、<br>知らない<br>一杯から。</h2>
       <p class="sw-block-text">ドイツの定番、黄金の苦み、ナポリの爽快感。3つの旅を、ひと箱で。</p>
       <p class="sw-block-text"><strong>霜降の日まで、1,000円OFF・ポイント10倍でお届けします。</strong></p>
